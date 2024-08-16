@@ -25,19 +25,29 @@ class AgriculturalData {
     required this.totalExpenditure,
   });
 
+  // Helper function to safely parse double values, ignoring commas and handling invalid formats
+  static double _parseDouble(String? value) {
+    if (value == null || value.isEmpty) {
+      return 0.0;
+    }
+    // Remove commas and non-numeric characters
+    value = value.replaceAll(',', '').trim();
+    return double.tryParse(value) ?? 0.0;
+  }
+
   factory AgriculturalData.fromJson(Map<String, dynamic> json) {
     return AgriculturalData(
-      state: json['states'],
-      university: json['agricultural_university'],
-      year: json['_year'],
-      stateAllocation: double.tryParse(json['state_allocation']) ?? 0.0,
-      stateExpenditure: double.tryParse(json['_state_expenditure']) ?? 0.0,
-      icarAllocation: double.tryParse(json['_icar_allocation']) ?? 0.0,
-      icarExpenditure: double.tryParse(json['_icar_expenditure']) ?? 0.0,
-      otherSourcesAllocation: double.tryParse(json['other_sources_allocation']) ?? 0.0,
-      otherSourcesExpenditure: double.tryParse(json['_other_sources_expenditure']) ?? 0.0,
-      totalAllocation: double.tryParse(json['_total_allocation']) ?? 0.0,
-      totalExpenditure: double.tryParse(json['_total_expenditure']) ?? 0.0,
+      state: json['states'] ?? '',
+      university: json['agricultural_university'] ?? '',
+      year: json['_year'] ?? '',
+      stateAllocation: _parseDouble(json['state_allocation']),
+      stateExpenditure: _parseDouble(json['_state_expenditure']),
+      icarAllocation: _parseDouble(json['_icar_allocation']),
+      icarExpenditure: _parseDouble(json['_icar_expenditure']),
+      otherSourcesAllocation: _parseDouble(json['other_sources_allocation']),
+      otherSourcesExpenditure: _parseDouble(json['_other_sources_expenditure']),
+      totalAllocation: _parseDouble(json['_total_allocation']),
+      totalExpenditure: _parseDouble(json['_total_expenditure']),
     );
   }
 }

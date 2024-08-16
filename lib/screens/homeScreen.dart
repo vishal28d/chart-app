@@ -58,12 +58,12 @@ Future<List<AgriculturalData>> fetchAgriculturalData() async {
     return Scaffold(
       appBar: AppBar(
          leading: IconButton(
-         icon: Icon(Icons.arrow_back),
+         icon: const Icon(Icons.arrow_back),
     onPressed: () {
       Navigator.of(context).pop(); // Navigate back
     },
   ),
-        title: Text('Agricultural Data'),
+        title: Text('University Data'),
       ),
       body: FutureBuilder<List<AgriculturalData>>(
         future: _dataFuture,
